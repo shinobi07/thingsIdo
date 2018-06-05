@@ -23,9 +23,9 @@ def check(player,board):
                 break
             else:
                 check = []
-                for i in board:
-                    for col in range(len(i)):
-                        if i[col] == 'x':
+                for arr in board:
+                    for col in range(len(arr)):
+                        if arr[col] == 'x':
                             check.append(col)
                 if check == [0,1,2,3] or check == [4,3,2,1]:
                     return True
@@ -40,9 +40,9 @@ def check(player,board):
                 break
             else:
                 check = []
-                for i in board:
-                    for col in range(len(i)):
-                        if i[col] == 'x':
+                for arr in board:
+                    for col in range(len(arr)):
+                        if arr[col] == 'x':
                             check.append(col)
                 if check == [0,1,2,3] or check == [4,3,2,1]:
                     return True
@@ -53,10 +53,10 @@ def check(player,board):
     return False
 
 
-i = 1
+turns = 1
 while True:
     place1 = list(map(int, input("Player 1, where do you want to go? <row> <column> ").split()))
-    if board[place1[0]-1][place1[1]-1] != p1 and board[place1[0]-1][place1[1]-1] != p2:
+    if (board[place1[0]-1][place1[1]-1] != p1) and (board[place1[0]-1][place1[1]-1] != p2):
         board[place1[0]-1][place1[1]-1] = p1
     else:
         print("Another place, please!")
@@ -65,14 +65,12 @@ while True:
     for row in board:
         print("\t" + " ".join(row))
         print("")
-    if i == 4:
+    if turns == 4:
         if check(p1,board):
             print("Player 1 won!")
             break
-        else:
-            continue
     place2 = list(map(int, input("Player 2, where do you want to go? <row> <column> ").split()))
-    if  board[place2[0]-1][place2[1]-1] != p2 and board[place2[0]-1][place2[1]-1] != p1:
+    if  (board[place2[0]-1][place2[1]-1] != p2) and (board[place2[0]-1][place2[1]-1] != p1):
         board[place2[0]-1][place2[1]-1] = p2
     else:
         print("Another place, please!")
@@ -81,10 +79,11 @@ while True:
     for row in board:
         print("\t" + " ".join(row))
         print("")
-    if i == 4:
-        if check(p2,board):
+    if turns == 4:
+        if check(p1,board):
+            print("Player 1 won!")
+            break
+        elif check(p2,board):
             print("Player 2 won!")
             break
-        else:
-            continue
-    i += 1
+    turns += 1
