@@ -18,7 +18,7 @@ else:
 def check(player,board):
     if player == 'x':
         for row in range(len(board)):
-            if board[row] == ['x','x','x','x','x']:
+            if board[row] == ['x','x','x','x']:
                 return True
                 break
             else:
@@ -27,24 +27,31 @@ def check(player,board):
                     for col in range(len(i)):
                         if i[col] == 'x':
                             check.append(col)
-                if check == [0,1,2,3,4] or check == [4,3,2,1,0]:
+                if check == [0,1,2,3] or check == [4,3,2,1]:
+                    return True
+                    break
+                elif sum(check) == check[0]*4:
                     return True
                     break
     elif player == 'o':
         for row in range(len(board)):
-            if board[row] == ['o','o','o','o','o']:
+            if board[row] == ['o','o','o','o']:
                 return True
                 break
             else:
                 check = []
                 for i in board:
                     for col in range(len(i)):
-                        if i[col] == 'o':
+                        if i[col] == 'x':
                             check.append(col)
-                if check == [0,1,2,3,4] or check == [4,3,2,1,0]:
+                if check == [0,1,2,3] or check == [4,3,2,1]:
+                    return True
+                    break
+                elif sum(check) == check[0]*4:
                     return True
                     break
     return False
+
 
 i = 1
 while True:
@@ -58,6 +65,12 @@ while True:
     for row in board:
         print("\t" + " ".join(row))
         print("")
+    if i == 4:
+        if check(p1,board):
+            print("Player 1 won!")
+            break
+        else:
+            continue
     place2 = list(map(int, input("Player 2, where do you want to go? <row> <column> ").split()))
     if  board[place2[0]-1][place2[1]-1] != p2 and board[place2[0]-1][place2[1]-1] != p1:
         board[place2[0]-1][place2[1]-1] = p2
@@ -68,11 +81,8 @@ while True:
     for row in board:
         print("\t" + " ".join(row))
         print("")
-    if i == 5:
-        if check(p1,board):
-            print("Player 1 won!")
-            break
-        elif check(p2,board):
+    if i == 4:
+        if check(p2,board):
             print("Player 2 won!")
             break
         else:
