@@ -1,4 +1,4 @@
-board = [["0"]*5 for i in range(5)]
+board = [["N"]*5 for i in range(5)]
 print("Here is the board for our game today.\n")
 for row in board:
     print("\t" + " ".join(row))
